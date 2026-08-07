@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 480" role="img" aria-label="Minimal line globe banner">
+  <rect width="1600" height="480" fill="#f7f8f9"/>
+  <g fill="none" stroke="#8f9aa3" stroke-width="3" opacity=".72">
+    <circle cx="800" cy="240" r="132"/>
+    <ellipse cx="800" cy="240" rx="58" ry="132"/>
+    <ellipse cx="800" cy="240" rx="132" ry="46"/>
+    <path d="M682 182c34 18 74 28 118 28s84-10 118-28"/>
+    <path d="M682 298c34-18 74-28 118-28s84 10 118 28"/>
+    <path d="M668 240h264"/>
+  </g>
+  <g fill="none" stroke="#d9dee3" stroke-width="2">
+    <path d="M0 368h1600"/>
+    <path d="M0 112h1600"/>
+  </g>
+</svg>
