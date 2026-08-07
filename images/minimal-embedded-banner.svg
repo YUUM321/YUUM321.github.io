@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 480" role="img" aria-label="Minimal embedded systems banner">
+  <rect width="1600" height="480" fill="#f6f7f8"/>
+  <path d="M0 340h1600" stroke="#d9dee3" stroke-width="2"/>
+  <path d="M0 180h1600" stroke="#eceff2" stroke-width="2"/>
+  <g fill="none" stroke="#96a0aa" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".75">
+    <rect x="640" y="160" width="320" height="160" rx="10"/>
+    <path d="M690 160v-34M740 160v-34M790 160v-34M840 160v-34M890 160v-34M940 160v-34"/>
+    <path d="M690 354v-34M740 354v-34M790 354v-34M840 354v-34M890 354v-34M940 354v-34"/>
+    <path d="M640 205h-52M640 240h-52M640 275h-52"/>
+    <path d="M1012 205h-52M1012 240h-52M1012 275h-52"/>
+    <path d="M720 240h160M800 200v80"/>
+    <circle cx="720" cy="240" r="8"/>
+    <circle cx="880" cy="240" r="8"/>
+    <circle cx="800" cy="200" r="8"/>
+    <circle cx="800" cy="280" r="8"/>
+  </g>
+</svg>
