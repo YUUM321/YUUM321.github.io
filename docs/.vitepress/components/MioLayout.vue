@@ -1,18 +1,41 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme'
 import { useRoute, withBase } from 'vitepress'
-import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import MioStarfield from './MioStarfield.vue'
+const MioSnake = defineAsyncComponent(() => import('./MioSnake.vue'))
 
 const route = useRoute()
 const open = ref(true)
 const desktop = ref(true)
 const panel = ref<HTMLElement>()
+const avatar = ref<HTMLButtonElement>()
+const snakeOpen = ref(false)
+let avatarTaps = 0
+let lastAvatarTap = 0
 const recentActivity = ref<{ date: string; repo: string; url: string }[]>([])
 const preferenceKey = 'mio-profile-expanded'
 let media: MediaQueryList | undefined
 let titleControl: HTMLAnchorElement | null = null
 let previousOverflow = ''
 let locked = false
+
+async function tapAvatar() {
+  const now = performance.now()
+  avatarTaps = now - lastAvatarTap <= 750 ? avatarTaps + 1 : 1
+  lastAvatarTap = now
+  if (avatarTaps < 5) return
+  avatarTaps = 0
+  if (!desktop.value) await setOpen(false, false)
+  snakeOpen.value = true
+}
+
+async function closeSnake() {
+  snakeOpen.value = false
+  await nextTick()
+  if (avatar.value?.isConnected) avatar.value.focus()
+  else titleControl?.focus()
+}
 
 function setScrollLock() {
   if (!desktop.value && open.value && !locked) {
@@ -91,13 +114,23 @@ function handlePanelKey(event: KeyboardEvent) {
     void setOpen(false)
   }
   if (event.key === 'Tab' && !desktop.value) {
-    // The profile currently has one interactive control: its close button.
-    event.preventDefault()
-    panel.value?.querySelector<HTMLButtonElement>('button')?.focus()
+    const controls = panel.value?.querySelectorAll<HTMLElement>('button, a[href]')
+    if (!controls?.length) return
+    const first = controls[0]
+    const last = controls[controls.length - 1]
+    if (event.shiftKey && (document.activeElement === first || document.activeElement === panel.value)) {
+      event.preventDefault()
+      last.focus()
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault()
+      first.focus()
+    }
   }
 }
 
 watch(() => route.path, () => {
+  snakeOpen.value = false
+  avatarTaps = 0
   if (!desktop.value && open.value) void setOpen(false, false)
 })
 
@@ -125,13 +158,14 @@ onBeforeUnmount(() => {
         </a>
       </template>
       <template #layout-top>
+        <MioStarfield />
         <div v-if="open && !desktop" class="mio-profile-backdrop" @click="setOpen(false)" />
         <aside v-if="open" id="mio-profile-panel" ref="panel" class="mio-profile-panel" :role="desktop ? undefined : 'dialog'" :aria-modal="desktop ? undefined : true" aria-labelledby="mio-profile-heading" tabindex="-1" @keydown="handlePanelKey">
           <div class="mio-profile-panel__header">
             <button class="mio-profile-close" type="button" aria-label="关闭" @click="setOpen(false)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
           </div>
           <div class="mio-profile-identity">
-            <div class="mio-avatar"><img :src="withBase('/images/mio-avatar.png')" alt="mio 的头像" /></div>
+            <button ref="avatar" class="mio-avatar" type="button" aria-label="mio 的头像" @click="tapAvatar"><img :src="withBase('/images/mio-avatar.png')" alt="" draggable="false" /></button>
             <h2 id="mio-profile-heading">mio</h2>
           </div>
           <section class="mio-profile-section" aria-labelledby="mio-now-title">
@@ -147,6 +181,7 @@ onBeforeUnmount(() => {
         </aside>
       </template>
     </DefaultTheme.Layout>
+    <MioSnake v-if="snakeOpen" @close="closeSnake" />
   </div>
 </template>
 

@@ -61,6 +61,19 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--mio-focus); out
 .VPNavBarSearch .DocSearch-Button-Keys { display: none; }
 
 .mio-shell { --mio-profile-width: 232px; }
+/* Keep the sky behind readable content and every interactive surface. */
+.mio-shell .VPContent { position: relative; z-index: 1; }
+.mio-shell .VPFooter { position: relative; z-index: 1; }
+.mio-dashboard__overview,
+.mio-dashboard__activity-grid,
+.mio-dashboard__visuals {
+  background: color-mix(in srgb, var(--vp-c-bg) 58%, transparent);
+}
+.mio-workspace .mio-feed,
+.mio-about,
+.mio-shell .VPDoc .content {
+  background: color-mix(in srgb, var(--vp-c-bg) 82%, transparent);
+}
 .mio-shell .VPNavBar .container { max-width: none; }
 .mio-profile-close { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 4px; color: var(--vp-c-text-2); cursor: pointer; }
 .mio-profile-close svg { width: 18px; height: 18px; }
@@ -70,6 +83,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--mio-focus); out
 .mio-profile-identity { padding-top: 18px; }
 .mio-avatar { position: relative; width: 88px; height: 88px; overflow: hidden; border: 1px solid var(--vp-c-divider); border-radius: 8px; background: #151515; }
 .mio-avatar img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center; }
+.mio-avatar { display: block; padding: 0; cursor: pointer; touch-action: manipulation; }
 .mio-profile-identity h2 { margin: 16px 0 4px; font-size: 20px; font-weight: 620; letter-spacing: -.4px; }
 .mio-profile-identity p { margin: 0; color: var(--vp-c-text-2); font: 12px/1.6 var(--vp-font-family-mono); }
 .mio-profile-intro { margin: 18px 0 28px; color: var(--vp-c-text-2); font-size: 12px; line-height: 1.65; }
@@ -213,27 +227,6 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--mio-focus); out
 
 .mio-game-page .VPDoc { padding: 0; }
 .mio-game-page .container { max-width: none !important; }
-.mio-tetris { width: min(100%, 430px); margin: 0 auto; padding: 58px 24px 72px; color: var(--vp-c-text-1); }
-.mio-tetris > header { display: grid; grid-template-columns: 1fr auto 28px; align-items: center; gap: 14px; margin-bottom: 18px; }
-.mio-tetris > header span { font: 14px/1 var(--vp-font-family-mono); color: var(--vp-c-text-2); }
-.mio-tetris > header time { font: 15px/1 var(--vp-font-family-mono); }
-.mio-tetris > header button, .mio-tetris nav button { display: inline-flex; align-items: center; justify-content: center; border: 1px solid var(--vp-c-divider); border-radius: 4px; color: var(--vp-c-text-1); cursor: pointer; }
-.mio-tetris > header button { width: 28px; height: 28px; font-size: 16px; }
-.mio-tetris__play { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-items: start; gap: 14px; }
-.mio-tetris__board { position: relative; display: grid; grid-template-columns: repeat(10, 1fr); aspect-ratio: 10 / 16; overflow: hidden; border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg-alt); }
-.mio-tetris__board > span { border: 1px solid color-mix(in srgb, var(--vp-c-divider) 55%, transparent); }
-.mio-tetris__board > span.filled { border-color: #00000015; }
-.tone-1 { background: repeating-linear-gradient(45deg, #4b4b4b 0 2px, #bcbcbc 2px 4px); }.tone-2 { background: repeating-linear-gradient(-45deg, #555 0 2px, #c8c8c8 2px 4px); }.tone-3 { background: linear-gradient(135deg, #4f4f4f 50%, #c5c5c5 50%); }.tone-4 { background: radial-gradient(#4a4a4a 28%, #c3c3c3 31%); background-size: 5px 5px; }.tone-5 { background: repeating-linear-gradient(0deg, #555 0 2px, #c7c7c7 2px 4px); }.tone-6 { background: repeating-linear-gradient(90deg, #575757 0 2px, #c5c5c5 2px 4px); }.tone-7 { background: linear-gradient(45deg, #555 25%, #c7c7c7 25% 50%, #555 50% 75%, #c7c7c7 75%); background-size: 6px 6px; }
-.mio-tetris__board > button { position: absolute; top: 50%; left: 50%; padding: 10px 13px; border: 1px solid var(--vp-c-divider); border-radius: 4px; background: var(--vp-c-bg); color: var(--vp-c-text-1); font-size: 13px; cursor: pointer; transform: translate(-50%, -50%); }
-.mio-tetris__board.is-over > span { opacity: .62; }
-.mio-tetris__next > span { display: block; margin: 2px 0 10px; color: var(--vp-c-text-2); font: 10px/1.5 var(--vp-font-family-mono); }
-.mio-tetris__preview { display: grid; grid-template-columns: repeat(4, 1fr); aspect-ratio: 1; margin-bottom: 12px; border: 1px solid var(--vp-c-divider); background: var(--vp-c-bg-alt); }
-.mio-tetris__preview i { border: 1px solid color-mix(in srgb, var(--vp-c-divider) 55%, transparent); }
-.mio-tetris__preview i.filled { border-color: #00000015; }
-.mio-tetris nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 14px; }
-.mio-tetris nav button { height: 38px; font-size: 17px; }
-.mio-tetris > header button:hover, .mio-tetris nav button:hover, .mio-tetris__board > button:hover { background: var(--vp-c-bg-soft); }
-
 .vp-doc h1 { font-size: 28px; font-weight: 620; line-height: 1.4; letter-spacing: -.6px; }
 .vp-doc h2 { font-size: 21px; font-weight: 600; }
 .vp-doc p, .vp-doc li { font-size: 15px; line-height: 1.85; }
@@ -244,6 +237,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--mio-focus); out
 .VPFooter { border-top: 1px solid var(--vp-c-divider); }
 
 @media (min-width: 960px) {
+  .mio-shell.profile-open .mio-starfield { left: var(--mio-profile-width); }
   .VPDoc { padding-top: 49px; }
   .mio-shell.profile-open .VPContent { padding-left: var(--mio-profile-width); }
   .mio-shell.profile-open .VPFooter { margin-left: var(--mio-profile-width); }
