@@ -1,0 +1,23 @@
+深圳实时恒星图 / Shenzhen live stellar chart
+
+观测位置：22.5431°N, 114.0579°E。时间使用设备当前时刻，页面不显示地点或时间标签。
+投影：以天顶为中心的立体投影，北上东左，适配屏幕的裁切视野。
+只绘制地平线上方的恒星；每 10 秒重新计算星位。全天均显示理想恒星图。
+未模拟日光、云层、光污染、恒星自行或大气折射；不含太阳、月亮及行星。
+星点的大小和透明度由视星等决定，亮度闪烁为视觉模拟；随机流星是装饰效果，并非流星预报。
+
+恒星数据：5,044 颗，视星等至 6 等。
+来源：d3-celestial / Olaf Frohn，stars.6.json（J2000 赤经、赤纬及视星等）。
+原始星表：XHIP: An Extended Hipparcos Compilation, Anderson E., Francis C. (2012), VizieR V/137D。
+https://github.com/ofrohn/d3-celestial
+https://cdsarc.cds.unistra.fr/viz-bin/cat/V/137D
+数据处理：GeoJSON 精简为 [HIP 编号, 赤经度数, 赤纬度数, 视星等]，未添加随机恒星。
+星座连线：同项目 constellations.lines.json；采样球面弧线后投影。
+授权：BSD-3-Clause，见 d3-celestial-LICENSE.txt。
+
+坐标计算：Astronomy Engine 2.1.19 / Don Cross。
+Rotation_EQJ_HOR 将 J2000 赤道坐标变换到深圳当地地平坐标，包含岁差、章动和地球自转。
+https://github.com/cosinekitty/astronomy
+授权：MIT，见 astronomy-engine-LICENSE.txt。
+
+星表及计算代码均随站点本地提供；访问时无需第三方星图接口或定位权限。
